@@ -10,48 +10,6 @@ SESSION_DIR = "sessions"
 os.makedirs(SESSION_DIR, exist_ok=True)
 
 def initialize_cookies():
-    cookie_password = os.getenv("COOKIE_SECRET") or st.secrets.get("COOKIE_SECRET")
-
-    if not cookie_password:
-        st.error("COOKIE_SECRET is not configured")
-        st.stop()
-
-    # Create cookie manager only once
-    if "cookie_manager" not in st.session_state:
-        st.session_state.cookie_manager = EncryptedCookieManager(
-            prefix="docuchat_",
-            password=cookie_password
-        )
-
-    cookies = st.session_state.cookie_manager
-
-    if not cookies.ready():
-        st.stop()
-
-    if "session_id" not in cookies:
-        cookies["session_id"] = str(uuid.uuid4())
-        cookies.save()
-
-    st.session_state.session_id = cookies["session_id"]
-    cookie_password = os.getenv("COOKIE_SECRET")
-
-    if not cookie_password:
-        st.error("COOKIE_SECRET environment variable is not set.")
-        st.stop()
-
-    cookies = EncryptedCookieManager(
-        prefix="docuchat_",
-        password=cookie_password
-    )
-
-    if not cookies.ready():
-        st.stop()
-
-    if "session_id" not in cookies:
-        cookies["session_id"] = str(uuid.uuid4())
-        cookies.save()
-
-    st.session_state.session_id = cookies["session_id"]
     cookie_password = os.getenv("COOKIE_SECRET")
     cookies = EncryptedCookieManager(prefix="docuchat_", password=cookie_password)
     if not cookies.ready():
