@@ -1,7 +1,9 @@
+import os
+
 MODEL_NAME = "qwen/qwen3-32b"
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 
-VECTOR_DB_PATH = "docuchat_vector_db"
+VECTOR_DB_PATH = os.path.join("/tmp", "docuchat_vector_db")
 
 MAX_FILE_SIZE_MB = 200
 
